@@ -111,7 +111,7 @@ def verifyApproovToken(request):
     try:
         # Decode the Approov token explicitly with the HS256 algorithm to avoid
         # the algorithm None attack.
-        approov_tokenjwt.decode(approov_token, APPROOV_SECRET, algorithms=['HS256'])
+        approov_token_claims = jwt.decode(approov_token, APPROOV_SECRET, algorithms=['HS256'])
         return approov_token_claims
     except jwt.ExpiredSignatureError as e:
         # You may want to add some logging here.
