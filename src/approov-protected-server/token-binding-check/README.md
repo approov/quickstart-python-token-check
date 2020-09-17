@@ -1,6 +1,6 @@
-# Approov Token Integration Example
+# Approov Token Binding Integration Example
 
-This Approov integration example is from where the code example for the [Approov token check quickstart](/docs/APPROOV_TOKEN_QUICKSTART.md) is extracted, and you can use it as a playground to better understand how simple and easy it is to implement [Approov](https://approov.io) in a Python API server.
+This Approov integration example is from where the code example for the [Approov token binding check quickstart](/docs/APPROOV_TOKEN_BINDING_QUICKSTART.md) is extracted, and you can use it as a playground to better understand how simple and easy it is to implement [Approov](https://approov.io) in a Python API server.
 
 ## TOC - Table of Contents
 
@@ -19,7 +19,7 @@ To lock down your API server to your mobile app. Please read the brief summary i
 
 ## How it works?
 
-The Python server is very simple and is defined in the file [src/approov-protected-server/token-check/hello-server-protected.py](src/approov-protected-server/token-check/hello-server-protected.py). Take a look at the `verifyApproovToken()` function to see the simple code for the check.
+The Python server is very simple and is defined in the file [src/approov-protected-server/token-check/hello-server-protected.py](src/approov-protected-server/token-check/hello-server-protected.py). Take a look at the `verifyApproovToken()` and `verifyApproovTokenBinding()` functions to see the simple code for the checks.
 
 For more background on Approov, see the overview in the [README](/README.md#how-it-works) at the root of this repo.
 
@@ -52,3 +52,5 @@ python hello-server-protected.py
 ```
 
 Finally, you can test that the Approov integration example works as expected with this [Postman collection](/README.md#testing-with-postman) or with some cURL requests [examples](/README.md#testing-with-curl).
+
+[TOC](#toc---table-of-contents)

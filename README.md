@@ -93,7 +93,7 @@ The code examples for the Approov quickstarts are extracted from this simple [Ap
 
 ### Testing with Postman
 
-A ready-to-use Postman collection can be found [here](https://raw.githubusercontent.com/approov/postman-collections/master/quickstarts/hello-world/hello-world.postman_collection.pyon). It contains a comprehensive set of example requests to send to the Python server for testing. The collection contains requests with valid and invalid Approov tokens, and with and without token binding.
+A ready-to-use Postman collection can be found [here](https://raw.githubusercontent.com/approov/postman-collections/master/quickstarts/hello-world/hello-world.postman_collection.json). It contains a comprehensive set of example requests to send to the Python server for testing. The collection contains requests with valid and invalid Approov tokens, and with and without token binding.
 
 ### Testing with Curl
 
