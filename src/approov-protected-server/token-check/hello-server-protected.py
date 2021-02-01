@@ -14,7 +14,7 @@ HOSTNAME = getenv('SERVER_HOSTNAME', '127.0.0.1')
 HTTP_PORT = int(getenv('HTTP_PORT', '8002'))
 
 # Token secret value obtained with the Approov CLI tool:
-#  - approov secret <admin.tok> -get
+#  - approov secret -get
 approov_base64_secret = getenv('APPROOV_BASE64_SECRET')
 
 if approov_base64_secret == None:
