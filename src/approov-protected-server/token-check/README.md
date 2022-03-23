@@ -51,6 +51,25 @@ Now, you can run this example from the `src/approov-protected-server/token-check
 python hello-server-protected.py
 ```
 
+Next, you can test that it works with:
+
+```bash
+curl -iX GET 'http://localhost:8002'
+```
+
+The response will be a `401` unauthorized request:
+
+```text
+HTTP/1.0 401 Unauthorized
+Server: SimpleHTTP/0.6 Python/3.10.3
+Date: Wed, 23 Mar 2022 17:24:39 GMT
+Content-type: application/json
+
+{}
+```
+
+The reason you got a `401` is because no Approoov token isn't provided in the headers of the request.
+
 Finally, you can test that the Approov integration example works as expected with this [Postman collection](/README.md#testing-with-postman) or with some cURL requests [examples](/README.md#testing-with-curl).
 
 [TOC](#toc---table-of-contents)

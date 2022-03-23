@@ -19,7 +19,7 @@ To lock down your API server to your mobile app. Please read the brief summary i
 
 ## How it works?
 
-The Python server is very simple and is defined in the file [src/approov-protected-server/token-check/hello-server-protected.py](src/approov-protected-server/token-check/hello-server-protected.py). Take a look at the `verifyApproovToken()` and `verifyApproovTokenBinding()` functions to see the simple code for the checks.
+The Python server is very simple and is defined in the file [src/approov-protected-server/token-binding-check/hello-server-protected.py](src/approov-protected-server/token-binding-check/hello-server-protected.py). Take a look at the `verifyApproovToken()` and `verifyApproovTokenBinding()` functions to see the simple code for the checks.
 
 For more background on Approov, see the overview in the [README](/README.md#how-it-works) at the root of this repo.
 
@@ -35,9 +35,9 @@ To run this example you will need to have Python installed. If you don't have th
 
 ## Try the Approov Integration Example
 
-First, you need to set the dummy secret in the `src/approov-protected-server/token-check/.env` file as explained [here](/README.md#the-dummy-secret).
+First, you need to set the dummy secret in the `src/approov-protected-server/token-binding-check/.env` file as explained [here](/README.md#the-dummy-secret).
 
-Second, you need to install the dependencies. From the `src/approov-protected-server/token-check` folder execute:
+Second, you need to install the dependencies. From the `src/approov-protected-server/token-binding-check` folder execute:
 
 ```text
 virtualenv venv
@@ -45,11 +45,30 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-Now, you can run this example from the `src/approov-protected-server/token-check` folder with:
+Now, you can run this example from the `src/approov-protected-server/token-binding-check` folder with:
 
 ```text
 python hello-server-protected.py
 ```
+
+Next, you can test that it works with:
+
+```bash
+curl -iX GET 'http://localhost:8002'
+```
+
+The response will be a `401` unauthorized request:
+
+```text
+HTTP/1.0 401 Unauthorized
+Server: SimpleHTTP/0.6 Python/3.10.3
+Date: Wed, 23 Mar 2022 17:24:39 GMT
+Content-type: application/json
+
+{}
+```
+
+The reason you got a `401` is because no Approoov token isn't provided in the headers of the request.
 
 Finally, you can test that the Approov integration example works as expected with this [Postman collection](/README.md#testing-with-postman) or with some cURL requests [examples](/README.md#testing-with-curl).
 

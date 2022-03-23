@@ -122,14 +122,9 @@ def verifyApproovToken(request):
 
 # @link https://approov.io/docs/latest/approov-usage-documentation/#token-binding
 def verifyApproovTokenBinding(request, approov_token_claims):
-
-    # Note that the `pay` claim will, under normal circumstances, be present,
-    # but if the Approov failover system is enabled, then no claim will be
-    # present, and in this case you want to return true, otherwise you will not
-    # be able to benefit from the redundancy afforded by the failover system.
     if not 'pay' in approov_token_claims:
         # You may want to add some logging here.
-        return None
+        return False
 
     # We use the Authorization token, but feel free to use another header in
     # the request. Beqar in mind that it needs to be the same header used in the
