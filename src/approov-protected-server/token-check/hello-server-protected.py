@@ -26,7 +26,8 @@ APPROOV_SECRET = base64.b64decode(approov_base64_secret)
 def verifyApproovToken(request):
     approov_token = request.headers.get("Approov-Token")
 
-    # If we didn't find a token, then reject the request.
+    # If we didn't find a token, then reject the request, because it didn't come
+    # from a genuine and unmodified version of your mobile app.
     if approov_token == "":
         # You may want to add some logging here.
         return None

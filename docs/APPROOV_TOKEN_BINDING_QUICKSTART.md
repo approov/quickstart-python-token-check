@@ -14,14 +14,14 @@ This quickstart is for developers familiar with Python who are looking for a qui
 
 ## Why?
 
-To lock down your API server to your mobile app. Please read the brief summary in the [README](/README.md#why) at the root of this repo or visit our [website](https://approov.io/product.html) for more details.
+To lock down your API server to your mobile app. Please read the brief summary in the [Approov Overview](/OVERVIEW.md#why) at the root of this repo or visit our [website](https://approov.io/product) for more details.
 
 [TOC](#toc---table-of-contents)
 
 
 ## How it works?
 
-For more background, see the overview in the [README](/README.md#how-it-works) at the root of this repository.
+For more background, see the [Approov Overview](/OVERVIEW.md#how-it-works) at the root of this repository.
 
 The main functionality for the Approov token binding check is in the file [src/approov-protected-server/token-binding-check/hello-server-protected.py](/src/approov-protected-server/token-binding-check/hello-server-protected.py). Take a look at the `verifyApproovToken()` and `verifyApproovTokenBinding()` functions to see the simple code for the checks.
 
@@ -48,7 +48,7 @@ Approov needs to know the domain name of the API for which it will issue tokens.
 
 Add it with:
 
-```text
+```bash
 approov api -add your.api.domain.com
 ```
 
@@ -62,7 +62,7 @@ Approov tokens are signed with a symmetric secret. To verify tokens, we need to 
 
 Retrieve the Approov secret with:
 
-```text
+```bash
 approov secret -get base64
 ```
 
@@ -72,7 +72,7 @@ approov secret -get base64
 
 Open the `.env` file and add the Approov secret to the var:
 
-```text
+```bash
 APPROOV_BASE64_SECRET=approov_base64_secret_here
 ```
 
@@ -103,7 +103,8 @@ APPROOV_SECRET = base64.b64decode(approov_base64_secret)
 def verifyApproovToken(request):
     approov_token = request.headers.get("Approov-Token")
 
-    # If we didn't find a token, then reject the request.
+    # If we didn't find a token, then reject the request, because it didn't come
+    # from a genuine and unmodified version of your mobile app.
     if approov_token == "":
         # You may want to add some logging here.
         return None
@@ -181,13 +182,13 @@ The following examples below use cURL, but you can also use the [Postman Collect
 
 Generate a valid token example from the Approov Cloud service:
 
-```
+```bash
 approov token -setDataHashInToken 'Bearer authorizationtoken' -genExample your.api.domain.com
 ```
 
 Then make the request with the generated token:
 
-```text
+```bash
 curl -i --request GET 'https://your.api.domain.com/v1/shapes' \
   --header 'Authorization: Bearer authorizationtoken' \
   --header 'Approov-Token: APPROOV_TOKEN_EXAMPLE_HERE'
@@ -209,7 +210,7 @@ HTTP/2 200
 
 Let's just remove the Authorization header from the request:
 
-```text
+```bash
 curl -i --request GET 'https://your.api.domain.com/v1/shapes' \
   --header 'Approov-Token: APPROOV_TOKEN_EXAMPLE_HERE'
 ```
@@ -228,7 +229,7 @@ HTTP/2 401
 
 Make the request with the same generated token, but with another random authorization token:
 
-```
+```bash
 curl -i --request GET 'https://your.api.domain.com/v1/shapes' \
   --header 'Authorization: Bearer anotherauthorizationtoken' \
   --header 'Approov-Token: APPROOV_TOKEN_EXAMPLE_HERE'
@@ -243,3 +244,27 @@ HTTP/2 401
 
 {}
 ```
+
+## Issues
+
+If you find any issue while following our instructions then just report it [here](https://github.com/approov/quickstart-python-token-check/issues), with the steps to reproduce it, and we will sort it out and/or guide you to the correct path.
+
+[TOC](#toc---table-of-contents)
+
+
+## Useful Links
+
+If you wish to explore the Approov solution in more depth, then why not try one of the following links as a jumping off point:
+
+* [Approov Free Trial](https://approov.io/signup)(no credit card needed)
+* [Approov Get Started](https://approov.io/product/demo)
+* [Approov QuickStarts](https://approov.io/docs/latest/approov-integration-examples/)
+* [Approov Docs](https://approov.io/docs)
+* [Approov Blog](https://approov.io/blog/)
+* [Approov Resources](https://approov.io/resource/)
+* [Approov Customer Stories](https://approov.io/customer)
+* [Approov Support](https://approov.zendesk.com/hc/en-gb/requests/new)
+* [About Us](https://approov.io/company)
+* [Contact Us](https://approov.io/contact)
+
+[TOC](#toc---table-of-contents)
