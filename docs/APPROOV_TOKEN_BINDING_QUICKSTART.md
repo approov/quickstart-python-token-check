@@ -60,13 +60,17 @@ Adding the API domain also configures the [dynamic certificate pinning](https://
 
 Approov tokens are signed with a symmetric secret. To verify tokens, we need to grab the secret using the [Approov secret command](https://approov.io/docs/latest/approov-cli-tool-reference/#secret-command) and plug it into the Python API server environment to check the signatures of the [Approov Tokens](https://www.approov.io/docs/latest/approov-usage-documentation/#approov-tokens) that it processes.
 
-Retrieve the Approov secret with:
+First, enable your Approov `admin` role with:
+
+```bash
+eval `approov role admin`
+```
+
+Next, retrieve the Approov secret with:
 
 ```bash
 approov secret -get base64
 ```
-
-> **NOTE:** The `approov secret` command requires an [administration role](https://approov.io/docs/latest/approov-usage-documentation/#account-access-roles) to execute successfully.
 
 #### Set the Approov Secret
 
@@ -83,7 +87,19 @@ APPROOV_BASE64_SECRET=approov_base64_secret_here
 
 To check the Approov token we will use the [jpadilla/pyjwt/](https://github.com/jpadilla/pyjwt/) package, but you are free to use another one of your preference.
 
-Add this functions to your code:
+First, add to your `requirements.txt` file the JWT dependency:
+
+```bash
+PyJWT==1.7.1 # update the version to the latest one
+```
+
+Next, you need to install the dependency:
+
+```bash
+pip3 install -r requirements.txt
+```
+
+Now, add this functions to your code:
 
 ```python
 import jwt

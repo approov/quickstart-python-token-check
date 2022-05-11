@@ -7,7 +7,27 @@ This repo implements the Approov server-side request verification code in Python
 
 ## Approov Integration Quickstart
 
-First, get your Approov Secret with the [Appoov CLI](https://approov.io/docs/latest/approov-installation/index.html#initializing-the-approov-cli):
+The quickstart was tested with the following Operating Systems:
+
+* Ubuntu 20.04
+* MacOS Big Sur
+* Windows 10 WSL2 - Ubuntu 20.04
+
+First, setup the [Appoov CLI](https://approov.io/docs/latest/approov-installation/index.html#initializing-the-approov-cli).
+
+Now, register the API domain for which Approov will issues tokens:
+
+```bash
+approov api -add api.example.com
+```
+
+Next, enable your Approov `admin` role with:
+
+```bash
+eval `approov role admin`
+```
+
+Now, get your Approov Secret with the [Appoov CLI](https://approov.io/docs/latest/approov-installation/index.html#initializing-the-approov-cli):
 
 ```bash
 approov secret -get base64
@@ -19,10 +39,16 @@ Next, add the [Approov secret](https://approov.io/docs/latest/approov-usage-docu
 APPROOV_BASE64_SECRET=approov_base64_secret_here
 ```
 
-Now, add to your `requirements.txt` file the [JWT dependency](https://github.com/auth0/node-jsonwebtoken#readme):
+Now, add to your `requirements.txt` file the [JWT dependency](https://github.com/jpadilla/pyjwt/):
 
 ```bash
-PyJWT==1.7.1
+PyJWT==1.7.1 # update the version to the latest one
+```
+
+Next, you need to install the dependencies:
+
+```bash
+pip3 install -r requirements.txt
 ```
 
 Next, in your code require the [JWT dependency](https://github.com/jpadilla/pyjwt/):
