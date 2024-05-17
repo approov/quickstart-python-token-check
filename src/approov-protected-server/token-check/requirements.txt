@@ -1,2 +1,2 @@
-PyJWT==1.7.1
+PyJWT==2.8.0
 python-dotenv==0.10.3
