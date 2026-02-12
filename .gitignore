@@ -1,1 +1,53 @@
+# OS / filesystem noise
+.DS_Store
+Thumbs.db
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build and packaging artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Test, lint and type-check caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.tox/
+.nox/
+
+# Coverage artifacts
+.coverage
+.coverage.*
+htmlcov/
+
+# Local runtime artifacts
+.config/
+*.log
+
+# Environment files (keep the template tracked)
 .env
+.env.*
+!.env.example
+
+# Editor / IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Optional local Docker overrides
+docker-compose.override.yml
