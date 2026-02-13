@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Single-file Approov quickstart server with token check and token binding."""
+"""Single-file Approov quickstart server with token verification and token binding."""
 
 from __future__ import annotations
 
@@ -384,7 +384,9 @@ class ApproovApplication:
             route_key = (_normalize_route_method(method), route_path)
             return route_key in self._route_details
 
-        return any(registered_path == route_path for _, registered_path in self._route_details)
+        return any(
+            registered_path == route_path for _, registered_path in self._route_details
+        )
 
     def allowed_methods_for_path(self, path: str) -> tuple[str, ...]:
         route_path = _normalize_route_path(path)
@@ -459,7 +461,9 @@ class ApproovApplication:
         except jwt.InvalidSignatureError:
             return {}, ERROR_TOKEN_VERIFICATION_FAILED
         except jwt.InvalidTokenError as error:
-            self.logger.warning("[approov] token invalid (%s)", error.__class__.__name__)
+            self.logger.warning(
+                "[approov] token invalid (%s)", error.__class__.__name__
+            )
             return {}, ERROR_TOKEN_VERIFICATION_FAILED
 
         if bound_headers:
@@ -469,7 +473,9 @@ class ApproovApplication:
             if not isinstance(pay_claim, str) or not _has_text(pay_claim):
                 return {}, ERROR_BINDING_MISMATCH
 
-            binding_error, binding_string = _build_token_binding_string(req, bound_headers)
+            binding_error, binding_string = _build_token_binding_string(
+                req, bound_headers
+            )
             if binding_error is not None or binding_string is None:
                 return {}, binding_error or ERROR_TOKEN_VERIFICATION_FAILED
 
@@ -485,7 +491,9 @@ class ApproovApplication:
         self.logger.debug("[approov] token verification successful")
         return claims, None
 
-    def _complete_decision(self, req: Any, decision: ApproovDecision) -> ApproovDecision:
+    def _complete_decision(
+        self, req: Any, decision: ApproovDecision
+    ) -> ApproovDecision:
         self._log_http_request_completed(req, decision)
         return decision
 

@@ -7,12 +7,22 @@ This project provides a server-side example of Approov token verification for a 
  - `/token-binding` - requires a valid Approov token which is bound to a header value.
  - `/token-double-binding` - requires a valid Approov token which is bound to two header values.
 
-In this example, all server logic is implemented in a single file: `server.py`.
+In this example, Approov token verification is implemented in `ApproovApplication.py`. The responsibilities break down as follows:
 
-1. **Approov JWT validation (signature + expiration)** is implemented in `ApproovApplication.approov()`, using `jwt.decode(..., algorithms=["HS256"])` with required `exp`.
-2. **Token binding (`pay` + hash)** is handled in `ApproovApplication.approov()`, with binding-input construction in `_build_token_binding_string()` and hash comparison in `_binding_matches()`.
-3. **Middleware enforcement** is handled by `ApproovApplication.extension()`, returning `401 Unauthorized` for missing or invalid token/binding.
-4. **HTTP routing and responses** are handled by `ApproovRequestHandler`, including `/approov-state`, `/approov/enable`, `/approov/disable`, and protected demo routes.
+1. **JWT Approov token validation (signature + expiry)** is in [ApproovApplication.approov()](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L431-L486).  
+   It verifies HS256 signatures and requires a valid `exp` claim.
+
+2. **Token binding (`pay` + hash)** is handled by [ApproovApplication.approov()](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L465-L478), with helpers in [_build_token_binding_string()](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L199-L213), [_sha256_b64_from_str()](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L216-L219), and [_binding_matches()](https://github.com/approov/quickstart-python-token-check/blob/refactor/pythonquickstart/ApproovApplication.py#L222-L225).  
+   It computes a base64-encoded SHA-256 digest of the binding input and compares it with `pay` using constant-time `hmac.compare_digest`.
+
+3. **Middleware enforcement** is done by [ApproovApplication.py](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L492-L554). Requests without a valid token or valid binding are rejected with `401`.
+
+4. **Binding value selection (what gets hashed)** is in [_build_token_binding_string()](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L199-L213).  
+   It uses headers configured per route (currently `Authorization` for single binding, or `Authorization` + `SessionId` for double binding).
+
+5. **Protected route requirements** are defined in [ProtectedRoute](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L40-L55).
+
+6. **Protected routes are registered** in [register_default_protected_routes()](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L324-L338) and [register_protected_route()](https://github.com/approov/quickstart-python-token-check/blob/refactor/python-quickstart/ApproovApplication.py#L356-L375).
 
 ## Approov Token Verification Flow
 
@@ -230,11 +240,10 @@ curl -X GET http://localhost:8080/approov-state       # check current state
 **Environments where the quickstart was tested:**
 ```text
 * Runtime: Python 3.12.12
-* Framework: Flask 3.1.2
 * Build Tool: pip 26.0.1 
 ```
 
-If you encounter any problems while following this guide, or have any other concerns, please let us know by opening an issue [here](https://github.com/approov/quickstart-php-token-check/issues) and we will be happy to assist you.
+If you encounter any problems while following this guide, or have any other concerns, please let us know by opening an issue [here](https://github.com/approov/quickstart-python-token-check/issues) and we will be happy to assist you.
 
 ## Useful Links
 
