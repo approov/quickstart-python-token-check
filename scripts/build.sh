@@ -75,6 +75,7 @@ wait_for_service() {
     sleep "$interval"
     elapsed=$((elapsed + interval))
     if (( elapsed >= timeout )); then
+      docker logs --tail 200 "$CONTAINER_NAME" >&2 || true
       fail "Application did not become ready within ${timeout}s (last url: ${url})"
     fi
   done
