@@ -1,37 +1,7 @@
-# VCS metadata
-.git/
-
-# Local environment/secrets (runtime uses --env-file on host)
+!ApproovApplication.py
+!requirements.txt
+!scripts/
+!scripts/build.sh
+.config/
 .env
 .env.*
-
-# Python bytecode/cache/build artifacts
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-coverage.xml
-htmlcov/
-dist/
-*.egg-info/
-
-# Virtual environments
-.venv/
-venv/
-
-# Local/editor/OS files
-.vscode/
-.idea/
-.DS_Store
-*.swp
-
-# Logs and local temp files
-*.log
-.pycache_tmp/
-
-# Not required in runtime image
-test.sh

@@ -1,5 +1,4 @@
 # syntax=docker/dockerfile:1
-# Builds the quickstart backend container image with scripts/build.sh
 # as the entrypoint used both locally and when deployed via Docker.
 FROM python:3.12-slim
 
